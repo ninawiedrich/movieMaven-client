@@ -27442,22 +27442,22 @@ _c = MovieCard;
 // }
 MovieCard.propTypes = {
     movie: (0, _propTypesDefault.default).shape({
-        _id: (0, _propTypesDefault.default).object,
-        title: (0, _propTypesDefault.default).string,
+        _id: (0, _propTypesDefault.default).object.isRequired,
+        title: (0, _propTypesDefault.default).string.isRequired,
         director: (0, _propTypesDefault.default).shape({
-            name: (0, _propTypesDefault.default).string,
-            bio: (0, _propTypesDefault.default).string,
-            birth: (0, _propTypesDefault.default).string
-        }),
-        description: (0, _propTypesDefault.default).string,
+            name: (0, _propTypesDefault.default).string.isRequired,
+            bio: (0, _propTypesDefault.default).string.isRequired,
+            birth: (0, _propTypesDefault.default).string.isRequired
+        }).isRequired,
+        description: (0, _propTypesDefault.default).string.isRequired,
         genre: (0, _propTypesDefault.default).shape({
-            name: (0, _propTypesDefault.default).string,
-            description: (0, _propTypesDefault.default).string
-        }),
-        imageUrl: (0, _propTypesDefault.default).string,
-        featured: (0, _propTypesDefault.default).bool
-    }),
-    onMovieClick: (0, _propTypesDefault.default).func
+            name: (0, _propTypesDefault.default).string.isRequired,
+            description: (0, _propTypesDefault.default).string.isRequired
+        }).isRequired,
+        imageUrl: (0, _propTypesDefault.default).string.isRequired,
+        featured: (0, _propTypesDefault.default).bool.isRequired
+    }).isRequired,
+    onMovieClick: (0, _propTypesDefault.default).func.isRequired
 };
 var _c;
 $RefreshReg$(_c, "MovieCard");
@@ -28416,22 +28416,22 @@ const MovieView = ({ movie, onBackClick })=>{
 _c = MovieView;
 MovieView.propTypes = {
     movie: (0, _propTypesDefault.default).shape({
-        _id: (0, _propTypesDefault.default).object,
-        title: (0, _propTypesDefault.default).string,
+        _id: (0, _propTypesDefault.default).object.isRequired,
+        title: (0, _propTypesDefault.default).string.isRequired,
         director: (0, _propTypesDefault.default).shape({
-            name: (0, _propTypesDefault.default).string,
-            bio: (0, _propTypesDefault.default).string,
-            birth: (0, _propTypesDefault.default).string
-        }),
-        description: (0, _propTypesDefault.default).string,
+            name: (0, _propTypesDefault.default).string.isRequired,
+            bio: (0, _propTypesDefault.default).string.isRequired,
+            birth: (0, _propTypesDefault.default).string.isRequired
+        }).isRequired,
+        description: (0, _propTypesDefault.default).string.isRequired,
         genre: (0, _propTypesDefault.default).shape({
-            name: (0, _propTypesDefault.default).string,
-            description: (0, _propTypesDefault.default).string
-        }),
-        imageUrl: (0, _propTypesDefault.default).string,
-        featured: (0, _propTypesDefault.default).bool
-    }),
-    onBackClick: (0, _propTypesDefault.default).func
+            name: (0, _propTypesDefault.default).string.isRequired,
+            description: (0, _propTypesDefault.default).string.isRequired
+        }).isRequired,
+        imageUrl: (0, _propTypesDefault.default).string.isRequired,
+        featured: (0, _propTypesDefault.default).bool.isRequired
+    }).isRequired,
+    onBackClick: (0, _propTypesDefault.default).func.isRequired
 };
 var _c;
 $RefreshReg$(_c, "MovieView");
