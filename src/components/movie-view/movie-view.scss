@@ -1,0 +1,21 @@
+.back-button {
+  padding: 4px 12px 4px 12px;
+  color: whitesmoke;
+  background-color: dodgerblue;
+  border: none;
+  border-radius: 4px;
+}
+
+.back-button:hover {
+  color: #1e90ff;
+  background-color: rgb(159, 204, 246);
+}
+
+$primary: #323031;
+$secondary: #0b5f6c;
+$success: #B5B5B5;
+$body-bg: #FFFFFF;
+$body-color: #000000;
+
+$font-family-base: 'Roboto', sans-serif;
+$font-family-sans-serif: 'Lato', sans-serif;

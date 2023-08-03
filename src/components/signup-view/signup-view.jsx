@@ -1,4 +1,7 @@
 import{ useState } from "react";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import Container from 'react-bootstrap/Container';
 
 export const SignupView = () => {
   const [username, setUsername] = useState("");
@@ -43,45 +46,58 @@ export const SignupView = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
+    <Container style={{ maxWidth: '400px', marginTop: '20px', fontFamily: 'Arial, sans-serif' }}>
+    <h3 style={{ color: '#00B4D8' }}>Signup</h3>
+    <Form onSubmit={handleSubmit}>
+      <Form.Group controlId="signUpFormUsername">
+      <Form.Label>
         Username:
-        <input
+        </Form.Label>
+        <Form.Control
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
           minLength="3"
         />
-      </label>
-      <label>
-        Password:
-        <input
+      </Form.Group>
+
+      <Form.Group controlId="signUpFormPassword">
+        <Form.Label>Password:</Form.Label>
+        <Form.Control
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-      </label>
-      <label>
-        Email:
-        <input
+        <Form.Text className="text-muted">
+      We'll never share your email with anyone else.
+    </Form.Text>
+      </Form.Group>
+      <Form.Group controlId="signUpFormEmail">
+        <Form.Label>Email:</Form.Label>
+        <Form.Control
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-      </label>
-      <label>
-        Birthday:
-        <input
+      </Form.Group>
+      <Form.Group controlId="signUpFormBirthday">
+        <Form.Label>Birthday:</Form.Label>
+        <Form.Control
           type="date"
           value={birthday}
           onChange={(e) => setBirthday(e.target.value)}
           required
         />
-      </label>
-      <button type="submit">Submit</button>
-    </form>
-  );
+      </Form.Group>
+      <div style={{ textAlign: 'right', marginTop: '10px' }}>
+      <Button variant="primary" type="submit" style={{ backgroundColor: '#00B4D8', borderColor: '#00B4D8' }}>
+        Signup
+      </Button>
+    </div>
+  </Form>
+  </Container>
+);
 };
