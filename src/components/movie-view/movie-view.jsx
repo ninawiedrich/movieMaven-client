@@ -1,10 +1,11 @@
+import "./movie-view.scss";
 import PropTypes from 'prop-types';
 
 export const MovieView = ({ movie, onBackClick }) => {
   return (
     <div>
       <div>
-        <img src={movie.imageUrl} alt={movie.title} />
+        <img className="w-100" src={movie.imageUrl} alt={movie.title} />
       </div>
       <div>
         <span>Title: </span>
@@ -34,7 +35,7 @@ export const MovieView = ({ movie, onBackClick }) => {
         <span>Genre Description: </span>
         <span>{movie.genre.description}</span>
       </div>
-      <button onClick={onBackClick}>Back</button>
+      <button onClick={onBackClick} className="back-button" style={{ cursor: "pointer" }}>Back</button>
     </div>
   );
 };

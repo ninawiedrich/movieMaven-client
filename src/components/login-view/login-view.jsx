@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Container from 'react-bootstrap/Container';
 
 export const LoginView = ({onLoggedIn}) => {
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -32,26 +34,39 @@ export const LoginView = ({onLoggedIn}) => {
   });
 };
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Username:
-        <input
+return (
+  <Container style={{ maxWidth: '400px', marginTop: '20px', fontFamily: 'Arial, sans-serif' }}>
+    <h3 style={{ color: '#00B4D8' }}>Login</h3>
+    <Form onSubmit={handleSubmit}>
+
+      <Form.Group controlId="formBasicUsername">
+        <Form.Label>Username:</Form.Label>
+        <Form.Control
           type="text"
+          placeholder="Enter username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
         />
-      </label>
-      <label>
-        Password:
-        <input type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
+      </Form.Group>
+
+      <Form.Group controlId="formBasicPassword">
+        <Form.Label>Password:</Form.Label>
+        <Form.Control
+          type="password"
+          placeholder="Enter password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
         />
-      </label>
-      <button type="submit">Submit</button>
-    </form>
-  );
-}
+      </Form.Group>
+
+      <div style={{ textAlign: 'right', marginTop: '10px' }}>
+      <Button variant="primary" type="submit" style={{ backgroundColor: '#00B4D8', borderColor: '#00B4D8' }}>
+        Login
+      </Button>
+    </div>
+  </Form>
+  </Container>
+);
+};
