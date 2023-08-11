@@ -1,21 +1,42 @@
-.back-button {
-  padding: 4px 12px 4px 12px;
-  color: whitesmoke;
-  background-color: dodgerblue;
+.movie-view {
+  display: flex;
+  max-width: 800px;
+  margin: 40px auto;
+  background: #fff;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.movie-image {
+  width: 100%;
+  padding: 20px 20px 0 20px; /* Add padding on all sides except the bottom */
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-self: flex-start; /* Align to the top */
+}
+
+.movie-image img {
+  width: 100%;
+  height: auto;
+}
+
+.movie-content {
+  padding: 20px;
+  flex-grow: 1;
+}
+
+.favorite-button, .back-button {
+  margin: 10px;
+  padding: 10px;
   border: none;
+  background: dodgerblue;
+  color: white;
   border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s;
 }
 
-.back-button:hover {
-  color: #1e90ff;
-  background-color: rgb(159, 204, 246);
+.favorite-button:hover, .back-button:hover {
+  background: deepskyblue;
 }
-
-$primary: #323031;
-$secondary: #0b5f6c;
-$success: #B5B5B5;
-$body-bg: #FFFFFF;
-$body-color: #000000;
-
-$font-family-base: 'Roboto', sans-serif;
-$font-family-sans-serif: 'Lato', sans-serif;

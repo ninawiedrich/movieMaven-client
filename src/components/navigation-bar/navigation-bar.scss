@@ -1,0 +1,29 @@
+.custom-navbar-border {
+  border-bottom: 4px solid #88d3f6;
+}
+
+.navbar {
+  font-family: 'Arial', sans-serif; 
+
+  .navbar-brand img {
+    margin-left: 20px;
+  }
+
+  .navbar-nav {
+    margin-left: auto; 
+
+    .nav-link {
+      font-weight: bold; 
+     font-size: 18px;
+     margin-left: 20px;
+
+      &:hover {
+        text-decoration: underline; 
+      }
+    }
+  }
+
+  .navbar-toggler {
+    border: none; 
+  }
+}

@@ -13191,6 +13191,34 @@ textarea.form-control-lg {
   background-color: #9fccf6;
 }
 
+.fav-movie {
+  margin-bottom: 15px;
+}
+
+.fav-movie figure {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  margin: auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.fav-movie figure img {
+  height: 400px;
+  margin: auto;
+  display: block;
+}
+
+.fav-movie button.btn {
+  margin: auto;
+  display: block;
+}
+
+.card {
+  margin-bottom: 15px;
+}
+
 :root, [data-bs-theme="light"] {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;

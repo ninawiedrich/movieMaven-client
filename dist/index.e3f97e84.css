@@ -1,3 +1,11 @@
+.card {
+  background: #fff;
+  border-radius: 5px;
+  margin: 20px auto;
+  overflow: hidden;
+  box-shadow: 0 3px 6px #0000001a;
+}
+
 .movie-view {
   background: #fff;
   border-radius: 5px;
@@ -26602,4 +26610,4 @@ textarea.form-control-lg {
   color: #4682b4;
 }
 
-/*# sourceMappingURL=index.5f1df611.css.map */
+/*# sourceMappingURL=index.e3f97e84.css.map */

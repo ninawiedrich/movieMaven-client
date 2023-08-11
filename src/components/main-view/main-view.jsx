@@ -3,6 +3,7 @@ import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
+import { ProfileView } from "../profile-view/profile-view";
 import Row from "react-bootstrap/Row";
 import Button from 'react-bootstrap/Button';
 import Col from "react-bootstrap/Col";
@@ -11,11 +12,16 @@ import { NavigationBar } from "../navigation-bar/navigation-bar";
 
 export const MainView = () => {
   const storedToken = localStorage.getItem("token");
-  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const storedUserJSON = localStorage.getItem("user");
+  const storedUser = storedUserJSON && storedUserJSON !== "undefined" ? JSON.parse(storedUserJSON) : null; // Additional check here
   const [movie, setMovie] = useState([]);
-  //const [selectedMovie, setSelectedMovie] = useState(null);
-  const [user, setUser] = useState(storedUser? storedUser : null);
-  const [token, setToken] = useState(storedToken? storedToken : null);
+  const [user, setUser] = useState(storedUser ? storedUser : null);
+  const [token, setToken] = useState(storedToken ? storedToken : null);
+
+  const updateUserFavorites = (updatedUser) => {
+    setUser(updatedUser);
+    localStorage.setItem('user', JSON.stringify(updatedUser));
+  };
 
   useEffect(() => {
     console.log("useEffect is being called");
@@ -103,7 +109,8 @@ export const MainView = () => {
 
             }
           />
-          <Route
+  
+         <Route
             path="/movies/:movieId"
             element={
               <>
@@ -113,12 +120,18 @@ export const MainView = () => {
                   <Col>The list is empty!</Col>
                 ) : (
                   <Col md={8}>
-                    <MovieView movie={movie} />
+                    <MovieView
+                      movie={movie}
+                      user={user}
+                      token={token}
+                      updateUserFavorites={updateUserFavorites}
+                    />
                   </Col>
                 )}
               </>
             }
           />
+
           <Route
             path="/"
             element={
@@ -139,6 +152,35 @@ export const MainView = () => {
               </>
             }
           />
+
+<Route
+              path='/users'
+              element={
+                <>
+                  {user ? (
+                    <Col>
+                      <h2 className="my-2 my-lg-0" style={{color: '#606060'}}>
+                        My profile settings
+                      </h2>
+                      <ProfileView
+                        loggedOut={() => {
+                          setUser(null);
+                          setMovie(null);
+                          localStorage.clear();
+                        }}
+                        user={user}
+                        token={token}
+                        movies={movie}
+                        setUser={setUser}
+        
+                      />
+                    </Col>
+                  ) : (
+                    <Navigate to='/login' replace />
+                  )}
+                </>
+              }
+            />
         </Routes>
       </Row>
     </BrowserRouter>
