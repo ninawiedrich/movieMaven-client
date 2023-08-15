@@ -2,33 +2,11 @@ import React from 'react';
 import { Col, Row, Figure, Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-function FavoriteMoviesComponent({ favoriteMovieList }) {
+
+function FavoriteMoviesComponent({ favoriteMovieList, removeFavoriteMovie }) {
 
   const removeFav = (movieId) => {
-    let token = localStorage.getItem('token');
-    let url =
-      `https://moviemaven-dfc40ecb1c33.herokuapp.com/users/${localStorage.getItem('user')}/movies/${movieId}`;
-  
-    fetch(url, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error('Failed to remove favorite movie');
-      }
-      return response.json();
-    })
-    .then((data) => {
-      // Refresh the list or remove the movie visually after deletion
-      // This depends on how you want to handle it
-      window.location.reload(); // You can use a better approach to update the UI
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
+    removeFavoriteMovie(movieId);
   };
 
   return (

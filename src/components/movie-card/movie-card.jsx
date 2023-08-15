@@ -22,11 +22,6 @@ export const MovieCard = ({ movie }) => {
   );
 };
 
-// export const movieCard = (props) => {
-//   const { movie } = props;
-//   return <div>{movieData.title}</div>;
-// }
-
 MovieCard.propTypes = {
   movie: PropTypes.shape({
     _id: PropTypes.string.isRequired,

@@ -12,7 +12,7 @@ function UserInfo({ email, name, birthday, onDeregister }) { // Add onDeregister
       <p>Name: {name}</p>
       <p>Email: {email}</p>
       <p>Birthday: {formattedBirthday}</p>
-      <button onClick={onDeregister}>Deregister</button> {/* Add this line */}
+      <button className="favorite-button" onClick={onDeregister}>Deregister</button>
     </>
   );
 }

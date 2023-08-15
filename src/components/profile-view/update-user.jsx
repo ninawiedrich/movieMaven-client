@@ -1,11 +1,10 @@
 import React from "react";
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
 
 function UpdateUser({ handleSubmit, handleUpdate, user }) {
   return (
     <>
-      <h4>Update</h4>
+      <h4>Update Profile Info</h4>
       <Form onSubmit={handleSubmit}>
         <Form.Group>
           <Form.Label>Username:</Form.Label>
@@ -41,7 +40,7 @@ function UpdateUser({ handleSubmit, handleUpdate, user }) {
           />
         </Form.Group>
         <Form.Group>
-          <Form.Label>Email:</Form.Label>
+          <Form.Label>Birthday:</Form.Label>
           <Form.Control
             type="date"
             name="birthay"
@@ -50,9 +49,9 @@ function UpdateUser({ handleSubmit, handleUpdate, user }) {
             required
           />
         </Form.Group>
-        <Button variant="primary" type="submit" onClick={handleSubmit}>
+        <button className="favorite-button" type="submit" onClick={handleSubmit}>
           Submit
-        </Button>
+        </button>
       </Form>
     </>
   );

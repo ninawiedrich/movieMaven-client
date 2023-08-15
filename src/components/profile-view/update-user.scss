@@ -1,0 +1,14 @@
+.favorite-button, .back-button {
+  margin: 10px;
+  padding: 10px;
+  border: none;
+  background: dodgerblue;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.favorite-button:hover, .back-button:hover {
+  background: deepskyblue;
+}

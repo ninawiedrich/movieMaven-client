@@ -5,7 +5,7 @@ import FavoriteMoviesComponent from './favorite-movies';
 import UpdateUser from './update-user';
 import './profile-view.scss';
 
-export const ProfileView = ({ user, token, setUser, movies, onLogout }) => {
+export const ProfileView = ({ user, token, setUser, movies, onLogout, removeFavoriteMovie }) => {
   const [username, setUsername] = useState(user.username);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState(user.email);
@@ -91,7 +91,7 @@ export const ProfileView = ({ user, token, setUser, movies, onLogout }) => {
     <Container>
       <Row>
         <Col xs={12} sm={4}>
-          <Card>
+          <Card className="custom-card">
             <Card.Body>
               <UserInfo name={user.username} email={user.email} birthday={user.birthday} onDeregister={handleDeleteUser}/>
             </Card.Body>
@@ -109,7 +109,7 @@ export const ProfileView = ({ user, token, setUser, movies, onLogout }) => {
           </Card>
         </Col>
       </Row>
-      <FavoriteMoviesComponent favoriteMovieList={favoriteMovieList} />
+      <FavoriteMoviesComponent favoriteMovieList={favoriteMovieList} removeFavoriteMovie={removeFavoriteMovie} />
     </Container>
   );
 }

@@ -22,8 +22,29 @@ export const MainView = () => {
     localStorage.setItem('user', JSON.stringify(updatedUser));
   };
 
+  const removeFavoriteMovie = (movieId) => {
+    let url = `https://moviemaven-dfc40ecb1c33.herokuapp.com/users/${user.username}/movies/${movieId}`;
+    fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Failed to remove favorite movie');
+      }
+      return response.json();
+    })
+    .then((updatedUser) => {
+      updateUserFavorites(updatedUser);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+  };
+
   useEffect(() => {
-    console.log('User state has changed:', user);
     console.log("useEffect is being called");
     console.log("Token before fetch:", token);
     if (!token) return;
@@ -169,6 +190,7 @@ export const MainView = () => {
               localStorage.removeItem('user');
               localStorage.removeItem('token');
             }}
+            removeFavoriteMovie={removeFavoriteMovie}
             user={user}
             token={token}
             movies={movie}

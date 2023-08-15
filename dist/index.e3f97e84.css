@@ -81,6 +81,10 @@
   margin-bottom: 15px;
 }
 
+.custom-card {
+  min-height: 415px;
+}
+
 .custom-navbar-border {
   border-bottom: 4px solid #88d3f6;
 }

@@ -3,13 +3,12 @@ import "./movie-view.scss";
 import PropTypes from 'prop-types';
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
-import { Card, Button } from 'react-bootstrap';
 
 export const MovieView = ({ movie: movies, user, token, updateUserFavorites }) => {
   const { movieId } = useParams();
   const movie = movies.find((movie) => movie._id === movieId);
 
-  const isFavorite = user && user.FavoriteMovies ? user.FavoriteMovies.includes(movieId) : false;
+  const isFavorite = user && user.favoriteMovies ? user.favoriteMovies.includes(movieId) : false;
 
   const handleFavoriteClick = () => {
     // Determine the method based on whether the movie is already a favorite

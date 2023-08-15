@@ -27202,8 +27202,23 @@ const MainView = ()=>{
         setUser(updatedUser);
         localStorage.setItem("user", JSON.stringify(updatedUser));
     };
+    const removeFavoriteMovie = (movieId)=>{
+        let url = `https://moviemaven-dfc40ecb1c33.herokuapp.com/users/${user.username}/movies/${movieId}`;
+        fetch(url, {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }).then((response)=>{
+            if (!response.ok) throw new Error("Failed to remove favorite movie");
+            return response.json();
+        }).then((updatedUser)=>{
+            updateUserFavorites(updatedUser);
+        }).catch((error)=>{
+            console.error("Error:", error);
+        });
+    };
     (0, _react.useEffect)(()=>{
-        console.log("User state has changed:", user);
         console.log("useEffect is being called");
         console.log("Token before fetch:", token);
         if (!token) return;
@@ -27251,7 +27266,7 @@ const MainView = ()=>{
                 }
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 69,
+                lineNumber: 90,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
@@ -27270,7 +27285,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 77,
+                            lineNumber: 98,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27290,7 +27305,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 92,
+                            lineNumber: 113,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27313,7 +27328,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 113,
+                            lineNumber: 134,
                             columnNumber: 10
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27336,7 +27351,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 135,
+                            lineNumber: 156,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27358,6 +27373,7 @@ const MainView = ()=>{
                                                 localStorage.removeItem("user");
                                                 localStorage.removeItem("token");
                                             },
+                                            removeFavoriteMovie: removeFavoriteMovie,
                                             user: user,
                                             token: token,
                                             movies: movie,
@@ -27371,24 +27387,24 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 156,
+                            lineNumber: 177,
                             columnNumber: 1
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 76,
+                    lineNumber: 97,
                     columnNumber: 9
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 75,
+                lineNumber: 96,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 68,
+        lineNumber: 89,
         columnNumber: 7
     }, undefined);
 };
@@ -27481,10 +27497,6 @@ const MovieCard = ({ movie })=>{
     }, undefined);
 };
 _c = MovieCard;
-// export const movieCard = (props) => {
-//   const { movie } = props;
-//   return <div>{movieData.title}</div>;
-// }
 MovieCard.propTypes = {
     movie: (0, _propTypesDefault.default).shape({
         _id: (0, _propTypesDefault.default).string.isRequired,
@@ -42754,13 +42766,12 @@ var _propTypes = require("prop-types");
 var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 var _reactRouter = require("react-router");
 var _reactRouterDom = require("react-router-dom");
-var _reactBootstrap = require("react-bootstrap");
 var _s = $RefreshSig$();
 const MovieView = ({ movie: movies, user, token, updateUserFavorites })=>{
     _s();
     const { movieId } = (0, _reactRouter.useParams)();
     const movie = movies.find((movie)=>movie._id === movieId);
-    const isFavorite = user && user.FavoriteMovies ? user.FavoriteMovies.includes(movieId) : false;
+    const isFavorite = user && user.favoriteMovies ? user.favoriteMovies.includes(movieId) : false;
     const handleFavoriteClick = ()=>{
         // Determine the method based on whether the movie is already a favorite
         const method = isFavorite ? "DELETE" : "POST";
@@ -42784,12 +42795,12 @@ const MovieView = ({ movie: movies, user, token, updateUserFavorites })=>{
                     alt: movie.title
                 }, void 0, false, {
                     fileName: "src/components/movie-view/movie-view.jsx",
-                    lineNumber: 33,
+                    lineNumber: 32,
                     columnNumber: 7
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/movie-view/movie-view.jsx",
-                lineNumber: 32,
+                lineNumber: 31,
                 columnNumber: 5
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -42799,7 +42810,7 @@ const MovieView = ({ movie: movies, user, token, updateUserFavorites })=>{
                         children: movie.title
                     }, void 0, false, {
                         fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 36,
+                        lineNumber: 35,
                         columnNumber: 7
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
@@ -42808,11 +42819,28 @@ const MovieView = ({ movie: movies, user, token, updateUserFavorites })=>{
                                 children: "Director:"
                             }, void 0, false, {
                                 fileName: "src/components/movie-view/movie-view.jsx",
-                                lineNumber: 37,
+                                lineNumber: 36,
                                 columnNumber: 10
                             }, undefined),
                             " ",
                             movie.director.name
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/movie-view/movie-view.jsx",
+                        lineNumber: 36,
+                        columnNumber: 7
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                children: "Director's Bio:"
+                            }, void 0, false, {
+                                fileName: "src/components/movie-view/movie-view.jsx",
+                                lineNumber: 37,
+                                columnNumber: 10
+                            }, undefined),
+                            " ",
+                            movie.director.bio
                         ]
                     }, void 0, true, {
                         fileName: "src/components/movie-view/movie-view.jsx",
@@ -42822,14 +42850,14 @@ const MovieView = ({ movie: movies, user, token, updateUserFavorites })=>{
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                         children: [
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                                children: "Director's Bio:"
+                                children: "Director's Birth:"
                             }, void 0, false, {
                                 fileName: "src/components/movie-view/movie-view.jsx",
                                 lineNumber: 38,
                                 columnNumber: 10
                             }, undefined),
                             " ",
-                            movie.director.bio
+                            movie.director.birth
                         ]
                     }, void 0, true, {
                         fileName: "src/components/movie-view/movie-view.jsx",
@@ -42839,14 +42867,14 @@ const MovieView = ({ movie: movies, user, token, updateUserFavorites })=>{
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                         children: [
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                                children: "Director's Birth:"
+                                children: "Description:"
                             }, void 0, false, {
                                 fileName: "src/components/movie-view/movie-view.jsx",
                                 lineNumber: 39,
                                 columnNumber: 10
                             }, undefined),
                             " ",
-                            movie.director.birth
+                            movie.description
                         ]
                     }, void 0, true, {
                         fileName: "src/components/movie-view/movie-view.jsx",
@@ -42856,14 +42884,14 @@ const MovieView = ({ movie: movies, user, token, updateUserFavorites })=>{
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                         children: [
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                                children: "Description:"
+                                children: "Genre:"
                             }, void 0, false, {
                                 fileName: "src/components/movie-view/movie-view.jsx",
                                 lineNumber: 40,
                                 columnNumber: 10
                             }, undefined),
                             " ",
-                            movie.description
+                            movie.genre.name
                         ]
                     }, void 0, true, {
                         fileName: "src/components/movie-view/movie-view.jsx",
@@ -42873,27 +42901,10 @@ const MovieView = ({ movie: movies, user, token, updateUserFavorites })=>{
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                         children: [
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                                children: "Genre:"
-                            }, void 0, false, {
-                                fileName: "src/components/movie-view/movie-view.jsx",
-                                lineNumber: 41,
-                                columnNumber: 10
-                            }, undefined),
-                            " ",
-                            movie.genre.name
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 41,
-                        columnNumber: 7
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                        children: [
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
                                 children: "Genre Description:"
                             }, void 0, false, {
                                 fileName: "src/components/movie-view/movie-view.jsx",
-                                lineNumber: 42,
+                                lineNumber: 41,
                                 columnNumber: 10
                             }, undefined),
                             " ",
@@ -42901,7 +42912,7 @@ const MovieView = ({ movie: movies, user, token, updateUserFavorites })=>{
                         ]
                     }, void 0, true, {
                         fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 42,
+                        lineNumber: 41,
                         columnNumber: 7
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -42910,7 +42921,7 @@ const MovieView = ({ movie: movies, user, token, updateUserFavorites })=>{
                         children: isFavorite ? "Remove from Favorites" : "Add to Favorites"
                     }, void 0, false, {
                         fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 43,
+                        lineNumber: 42,
                         columnNumber: 7
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
@@ -42920,24 +42931,24 @@ const MovieView = ({ movie: movies, user, token, updateUserFavorites })=>{
                             children: "Back"
                         }, void 0, false, {
                             fileName: "src/components/movie-view/movie-view.jsx",
-                            lineNumber: 47,
+                            lineNumber: 46,
                             columnNumber: 9
                         }, undefined)
                     }, void 0, false, {
                         fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 46,
+                        lineNumber: 45,
                         columnNumber: 7
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/movie-view/movie-view.jsx",
-                lineNumber: 35,
+                lineNumber: 34,
                 columnNumber: 5
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/movie-view/movie-view.jsx",
-        lineNumber: 31,
+        lineNumber: 30,
         columnNumber: 3
     }, undefined);
 };
@@ -42955,7 +42966,7 @@ $RefreshReg$(_c, "MovieView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./movie-view.scss":"jnlR5","prop-types":"7wKI2","react-router":"btA8E","react-router-dom":"fdOAw","react-bootstrap":"3AD9A","@parcel/transformer-js/src/esmodule-helpers.js":"effRT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"lATqB"}],"jnlR5":[function() {},{}],"9YtA0":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./movie-view.scss":"jnlR5","react-router":"btA8E","react-router-dom":"fdOAw","@parcel/transformer-js/src/esmodule-helpers.js":"effRT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"lATqB","prop-types":"7wKI2"}],"jnlR5":[function() {},{}],"9YtA0":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$9fee = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -43182,7 +43193,7 @@ const SignupView = ()=>{
                 children: "Signup"
             }, void 0, false, {
                 fileName: "src/components/signup-view/signup-view.jsx",
-                lineNumber: 40,
+                lineNumber: 39,
                 columnNumber: 5
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default), {
@@ -43195,7 +43206,7 @@ const SignupView = ()=>{
                                 children: "Username:"
                             }, void 0, false, {
                                 fileName: "src/components/signup-view/signup-view.jsx",
-                                lineNumber: 43,
+                                lineNumber: 42,
                                 columnNumber: 7
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control, {
@@ -43206,13 +43217,13 @@ const SignupView = ()=>{
                                 minLength: "5"
                             }, void 0, false, {
                                 fileName: "src/components/signup-view/signup-view.jsx",
-                                lineNumber: 46,
+                                lineNumber: 45,
                                 columnNumber: 9
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 42,
+                        lineNumber: 41,
                         columnNumber: 7
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
@@ -43222,7 +43233,7 @@ const SignupView = ()=>{
                                 children: "Password:"
                             }, void 0, false, {
                                 fileName: "src/components/signup-view/signup-view.jsx",
-                                lineNumber: 56,
+                                lineNumber: 55,
                                 columnNumber: 9
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control, {
@@ -43232,7 +43243,7 @@ const SignupView = ()=>{
                                 required: true
                             }, void 0, false, {
                                 fileName: "src/components/signup-view/signup-view.jsx",
-                                lineNumber: 57,
+                                lineNumber: 56,
                                 columnNumber: 9
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Text, {
@@ -43240,13 +43251,13 @@ const SignupView = ()=>{
                                 children: "We'll never share your email with anyone else."
                             }, void 0, false, {
                                 fileName: "src/components/signup-view/signup-view.jsx",
-                                lineNumber: 63,
+                                lineNumber: 62,
                                 columnNumber: 9
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 55,
+                        lineNumber: 54,
                         columnNumber: 7
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
@@ -43256,7 +43267,7 @@ const SignupView = ()=>{
                                 children: "Email:"
                             }, void 0, false, {
                                 fileName: "src/components/signup-view/signup-view.jsx",
-                                lineNumber: 68,
+                                lineNumber: 67,
                                 columnNumber: 9
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control, {
@@ -43266,13 +43277,13 @@ const SignupView = ()=>{
                                 required: true
                             }, void 0, false, {
                                 fileName: "src/components/signup-view/signup-view.jsx",
-                                lineNumber: 69,
+                                lineNumber: 68,
                                 columnNumber: 9
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 67,
+                        lineNumber: 66,
                         columnNumber: 7
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
@@ -43282,7 +43293,7 @@ const SignupView = ()=>{
                                 children: "Birthday:"
                             }, void 0, false, {
                                 fileName: "src/components/signup-view/signup-view.jsx",
-                                lineNumber: 77,
+                                lineNumber: 76,
                                 columnNumber: 9
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control, {
@@ -43292,13 +43303,13 @@ const SignupView = ()=>{
                                 required: true
                             }, void 0, false, {
                                 fileName: "src/components/signup-view/signup-view.jsx",
-                                lineNumber: 78,
+                                lineNumber: 77,
                                 columnNumber: 9
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 76,
+                        lineNumber: 75,
                         columnNumber: 7
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -43316,24 +43327,24 @@ const SignupView = ()=>{
                             children: "Signup"
                         }, void 0, false, {
                             fileName: "src/components/signup-view/signup-view.jsx",
-                            lineNumber: 86,
+                            lineNumber: 85,
                             columnNumber: 7
                         }, undefined)
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 85,
+                        lineNumber: 84,
                         columnNumber: 7
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/signup-view/signup-view.jsx",
-                lineNumber: 41,
+                lineNumber: 40,
                 columnNumber: 5
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/signup-view/signup-view.jsx",
-        lineNumber: 39,
+        lineNumber: 38,
         columnNumber: 5
     }, undefined);
 };
@@ -43369,7 +43380,7 @@ var _updateUser = require("./update-user");
 var _updateUserDefault = parcelHelpers.interopDefault(_updateUser);
 var _profileViewScss = require("./profile-view.scss");
 var _s = $RefreshSig$();
-const ProfileView = ({ user, token, setUser, movies, onLogout })=>{
+const ProfileView = ({ user, token, setUser, movies, onLogout, removeFavoriteMovie })=>{
     _s();
     const [username, setUsername] = (0, _react.useState)(user.username);
     const [password, setPassword] = (0, _react.useState)("");
@@ -43445,6 +43456,7 @@ const ProfileView = ({ user, token, setUser, movies, onLogout })=>{
                         xs: 12,
                         sm: 4,
                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
+                            className: "custom-card",
                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Body, {
                                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _userInfoDefault.default), {
                                     name: user.username,
@@ -43512,7 +43524,8 @@ const ProfileView = ({ user, token, setUser, movies, onLogout })=>{
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _favoriteMoviesDefault.default), {
-                favoriteMovieList: favoriteMovieList
+                favoriteMovieList: favoriteMovieList,
+                removeFavoriteMovie: removeFavoriteMovie
             }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
                 lineNumber: 112,
@@ -43592,14 +43605,14 @@ function UserInfo({ email, name, birthday, onDeregister }) {
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                className: "favorite-button",
                 onClick: onDeregister,
                 children: "Deregister"
             }, void 0, false, {
                 fileName: "src/components/profile-view/user-info.jsx",
                 lineNumber: 15,
                 columnNumber: 7
-            }, this),
-            " "
+            }, this)
         ]
     }, void 0, true);
 }
@@ -43627,25 +43640,9 @@ var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _reactBootstrap = require("react-bootstrap");
 var _reactRouterDom = require("react-router-dom");
-function FavoriteMoviesComponent({ favoriteMovieList }) {
+function FavoriteMoviesComponent({ favoriteMovieList, removeFavoriteMovie }) {
     const removeFav = (movieId)=>{
-        let token = localStorage.getItem("token");
-        let url = `https://moviemaven-dfc40ecb1c33.herokuapp.com/users/${localStorage.getItem("user")}/movies/${movieId}`;
-        fetch(url, {
-            method: "DELETE",
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        }).then((response)=>{
-            if (!response.ok) throw new Error("Failed to remove favorite movie");
-            return response.json();
-        }).then((data)=>{
-            // Refresh the list or remove the movie visually after deletion
-            // This depends on how you want to handle it
-            window.location.reload(); // You can use a better approach to update the UI
-        }).catch((error)=>{
-            console.error("Error:", error);
-        });
+        removeFavoriteMovie(movieId);
     };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Body, {
@@ -43657,17 +43654,17 @@ function FavoriteMoviesComponent({ favoriteMovieList }) {
                             children: "Favorite Movies"
                         }, void 0, false, {
                             fileName: "src/components/profile-view/favorite-movies.jsx",
-                            lineNumber: 39,
+                            lineNumber: 17,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "src/components/profile-view/favorite-movies.jsx",
-                        lineNumber: 38,
+                        lineNumber: 16,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "src/components/profile-view/favorite-movies.jsx",
-                    lineNumber: 37,
+                    lineNumber: 15,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
@@ -43687,25 +43684,25 @@ function FavoriteMoviesComponent({ favoriteMovieList }) {
                                                 alt: title
                                             }, void 0, false, {
                                                 fileName: "src/components/profile-view/favorite-movies.jsx",
-                                                lineNumber: 48,
+                                                lineNumber: 26,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Figure).Caption, {
                                                 children: title
                                             }, void 0, false, {
                                                 fileName: "src/components/profile-view/favorite-movies.jsx",
-                                                lineNumber: 49,
+                                                lineNumber: 27,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "src/components/profile-view/favorite-movies.jsx",
-                                        lineNumber: 47,
+                                        lineNumber: 25,
                                         columnNumber: 19
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "src/components/profile-view/favorite-movies.jsx",
-                                    lineNumber: 46,
+                                    lineNumber: 24,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -43714,30 +43711,30 @@ function FavoriteMoviesComponent({ favoriteMovieList }) {
                                     children: "Remove from list"
                                 }, void 0, false, {
                                     fileName: "src/components/profile-view/favorite-movies.jsx",
-                                    lineNumber: 54,
+                                    lineNumber: 32,
                                     columnNumber: 17
                                 }, this)
                             ]
                         }, _id, true, {
                             fileName: "src/components/profile-view/favorite-movies.jsx",
-                            lineNumber: 45,
+                            lineNumber: 23,
                             columnNumber: 15
                         }, this);
                     })
                 }, void 0, false, {
                     fileName: "src/components/profile-view/favorite-movies.jsx",
-                    lineNumber: 42,
+                    lineNumber: 20,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "src/components/profile-view/favorite-movies.jsx",
-            lineNumber: 36,
+            lineNumber: 14,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "src/components/profile-view/favorite-movies.jsx",
-        lineNumber: 35,
+        lineNumber: 13,
         columnNumber: 5
     }, this);
 }
@@ -43765,16 +43762,14 @@ var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _form = require("react-bootstrap/Form");
 var _formDefault = parcelHelpers.interopDefault(_form);
-var _button = require("react-bootstrap/Button");
-var _buttonDefault = parcelHelpers.interopDefault(_button);
 function UpdateUser({ handleSubmit, handleUpdate, user }) {
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h4", {
-                children: "Update"
+                children: "Update Profile Info"
             }, void 0, false, {
                 fileName: "src/components/profile-view/update-user.jsx",
-                lineNumber: 8,
+                lineNumber: 7,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default), {
@@ -43786,7 +43781,7 @@ function UpdateUser({ handleSubmit, handleUpdate, user }) {
                                 children: "Username:"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/update-user.jsx",
-                                lineNumber: 11,
+                                lineNumber: 10,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control, {
@@ -43798,13 +43793,13 @@ function UpdateUser({ handleSubmit, handleUpdate, user }) {
                                 placeholder: "Enter a username"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/update-user.jsx",
-                                lineNumber: 12,
+                                lineNumber: 11,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/profile-view/update-user.jsx",
-                        lineNumber: 10,
+                        lineNumber: 9,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
@@ -43813,7 +43808,7 @@ function UpdateUser({ handleSubmit, handleUpdate, user }) {
                                 children: "Password:"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/update-user.jsx",
-                                lineNumber: 22,
+                                lineNumber: 21,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control, {
@@ -43825,13 +43820,13 @@ function UpdateUser({ handleSubmit, handleUpdate, user }) {
                                 placeholder: "Enter password"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/update-user.jsx",
-                                lineNumber: 23,
+                                lineNumber: 22,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/profile-view/update-user.jsx",
-                        lineNumber: 21,
+                        lineNumber: 20,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
@@ -43840,7 +43835,7 @@ function UpdateUser({ handleSubmit, handleUpdate, user }) {
                                 children: "Email:"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/update-user.jsx",
-                                lineNumber: 33,
+                                lineNumber: 32,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control, {
@@ -43852,22 +43847,22 @@ function UpdateUser({ handleSubmit, handleUpdate, user }) {
                                 placeholder: "Enter email"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/update-user.jsx",
-                                lineNumber: 34,
+                                lineNumber: 33,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/profile-view/update-user.jsx",
-                        lineNumber: 32,
+                        lineNumber: 31,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
                         children: [
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Label, {
-                                children: "Email:"
+                                children: "Birthday:"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/update-user.jsx",
-                                lineNumber: 44,
+                                lineNumber: 43,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control, {
@@ -43878,29 +43873,29 @@ function UpdateUser({ handleSubmit, handleUpdate, user }) {
                                 required: true
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/update-user.jsx",
-                                lineNumber: 45,
+                                lineNumber: 44,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/profile-view/update-user.jsx",
-                        lineNumber: 43,
+                        lineNumber: 42,
                         columnNumber: 9
                     }, this),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
-                        variant: "primary",
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                        className: "favorite-button",
                         type: "submit",
                         onClick: handleSubmit,
                         children: "Submit"
                     }, void 0, false, {
                         fileName: "src/components/profile-view/update-user.jsx",
-                        lineNumber: 53,
+                        lineNumber: 52,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/components/profile-view/update-user.jsx",
-                lineNumber: 9,
+                lineNumber: 8,
                 columnNumber: 7
             }, this)
         ]
@@ -43916,7 +43911,7 @@ $RefreshReg$(_c, "UpdateUser");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap/Form":"iBZ80","react-bootstrap/Button":"aPzUt","@parcel/transformer-js/src/esmodule-helpers.js":"effRT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"lATqB"}],"eyKYH":[function() {},{}],"bsPVM":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap/Form":"iBZ80","@parcel/transformer-js/src/esmodule-helpers.js":"effRT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"lATqB"}],"eyKYH":[function() {},{}],"bsPVM":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$abf5 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
