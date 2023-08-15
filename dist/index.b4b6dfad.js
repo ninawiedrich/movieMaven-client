@@ -27185,8 +27185,6 @@ var _signupView = require("../signup-view/signup-view");
 var _profileView = require("../profile-view/profile-view");
 var _row = require("react-bootstrap/Row");
 var _rowDefault = parcelHelpers.interopDefault(_row);
-var _button = require("react-bootstrap/Button");
-var _buttonDefault = parcelHelpers.interopDefault(_button);
 var _col = require("react-bootstrap/Col");
 var _colDefault = parcelHelpers.interopDefault(_col);
 var _reactRouterDom = require("react-router-dom");
@@ -27205,6 +27203,7 @@ const MainView = ()=>{
         localStorage.setItem("user", JSON.stringify(updatedUser));
     };
     (0, _react.useEffect)(()=>{
+        console.log("User state has changed:", user);
         console.log("useEffect is being called");
         console.log("Token before fetch:", token);
         if (!token) return;
@@ -27346,17 +27345,18 @@ const MainView = ()=>{
                                 children: user ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                                     children: [
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                                            className: "my-2 my-lg-0",
                                             style: {
-                                                color: "#606060"
+                                                color: "#606060",
+                                                marginTop: "80px"
                                             },
                                             children: "My profile settings"
                                         }, void 0, false, void 0, void 0),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _profileView.ProfileView), {
-                                            loggedOut: ()=>{
+                                            onLogout: ()=>{
                                                 setUser(null);
-                                                setMovie(null);
-                                                localStorage.clear();
+                                                setMovie([]);
+                                                localStorage.removeItem("user");
+                                                localStorage.removeItem("token");
                                             },
                                             user: user,
                                             token: token,
@@ -27402,7 +27402,7 @@ $RefreshReg$(_c, "MainView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../movie-card/movie-card":"bwuIu","../movie-view/movie-view":"ggaUx","../login-view/login-view":"9YtA0","../signup-view/signup-view":"4OGiN","../profile-view/profile-view":"2vVqf","react-bootstrap/Row":"cMC39","react-bootstrap/Button":"aPzUt","react-bootstrap/Col":"2L2I6","react-router-dom":"fdOAw","../navigation-bar/navigation-bar":"bsPVM","@parcel/transformer-js/src/esmodule-helpers.js":"effRT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"lATqB"}],"bwuIu":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../movie-card/movie-card":"bwuIu","../movie-view/movie-view":"ggaUx","../login-view/login-view":"9YtA0","../signup-view/signup-view":"4OGiN","../profile-view/profile-view":"2vVqf","react-bootstrap/Row":"cMC39","react-bootstrap/Col":"2L2I6","react-router-dom":"fdOAw","../navigation-bar/navigation-bar":"bsPVM","@parcel/transformer-js/src/esmodule-helpers.js":"effRT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"lATqB"}],"bwuIu":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$67b2 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -43009,7 +43009,9 @@ const LoginView = ({ onLoggedIn })=>{
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
                 style: {
-                    color: "#00B4D8"
+                    fontWeight: "bold",
+                    color: "#00B4D8",
+                    margin: "80px 150px 40px"
                 },
                 children: "Login"
             }, void 0, false, {
@@ -43173,7 +43175,9 @@ const SignupView = ()=>{
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
                 style: {
-                    color: "#00B4D8"
+                    fontWeight: "bold",
+                    color: "#00B4D8",
+                    margin: "80px 150px 40px"
                 },
                 children: "Signup"
             }, void 0, false, {
@@ -43371,7 +43375,7 @@ const ProfileView = ({ user, token, setUser, movies, onLogout })=>{
     const [password, setPassword] = (0, _react.useState)("");
     const [email, setEmail] = (0, _react.useState)(user.email);
     const [birthday, setBirthday] = (0, _react.useState)(user.birthDate);
-    const favoriteMoviesIds = user.FavoriteMovies || [];
+    const favoriteMoviesIds = user.favoriteMovies || [];
     const favoriteMovieList = movies.filter((movie)=>{
         return favoriteMoviesIds.includes(movie._id);
     });
@@ -43445,7 +43449,8 @@ const ProfileView = ({ user, token, setUser, movies, onLogout })=>{
                                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _userInfoDefault.default), {
                                     name: user.username,
                                     email: user.email,
-                                    birthday: user.birthday
+                                    birthday: user.birthday,
+                                    onDeregister: handleDeleteUser
                                 }, void 0, false, {
                                     fileName: "src/components/profile-view/profile-view.jsx",
                                     lineNumber: 96,
@@ -43543,15 +43548,18 @@ parcelHelpers.defineInteropFlag(exports);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
-function UserInfo({ email, name }) {
+function UserInfo({ email, name, birthday, onDeregister }) {
+    const date = new Date(birthday);
+    // Format the date according to the user's locale
+    const formattedBirthday = date.toLocaleDateString();
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h4", {
                 children: "Profile Info"
             }, void 0, false, {
                 fileName: "src/components/profile-view/user-info.jsx",
-                lineNumber: 6,
-                columnNumber: 5
+                lineNumber: 11,
+                columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                 children: [
@@ -43560,8 +43568,8 @@ function UserInfo({ email, name }) {
                 ]
             }, void 0, true, {
                 fileName: "src/components/profile-view/user-info.jsx",
-                lineNumber: 7,
-                columnNumber: 5
+                lineNumber: 12,
+                columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                 children: [
@@ -43570,9 +43578,28 @@ function UserInfo({ email, name }) {
                 ]
             }, void 0, true, {
                 fileName: "src/components/profile-view/user-info.jsx",
-                lineNumber: 8,
-                columnNumber: 5
-            }, this)
+                lineNumber: 13,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                children: [
+                    "Birthday: ",
+                    formattedBirthday
+                ]
+            }, void 0, true, {
+                fileName: "src/components/profile-view/user-info.jsx",
+                lineNumber: 14,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                onClick: onDeregister,
+                children: "Deregister"
+            }, void 0, false, {
+                fileName: "src/components/profile-view/user-info.jsx",
+                lineNumber: 15,
+                columnNumber: 7
+            }, this),
+            " "
         ]
     }, void 0, true);
 }
@@ -43818,7 +43845,7 @@ function UpdateUser({ handleSubmit, handleUpdate, user }) {
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control, {
                                 type: "email",
-                                name: "Email",
+                                name: "email",
                                 defaultValue: user.email,
                                 onChange: (e)=>handleUpdate(e),
                                 required: true,
@@ -43834,6 +43861,32 @@ function UpdateUser({ handleSubmit, handleUpdate, user }) {
                         lineNumber: 32,
                         columnNumber: 9
                     }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Label, {
+                                children: "Email:"
+                            }, void 0, false, {
+                                fileName: "src/components/profile-view/update-user.jsx",
+                                lineNumber: 44,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control, {
+                                type: "date",
+                                name: "birthay",
+                                defaultValue: user.birthday,
+                                onChange: (e)=>handleUpdate(e),
+                                required: true
+                            }, void 0, false, {
+                                fileName: "src/components/profile-view/update-user.jsx",
+                                lineNumber: 45,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/profile-view/update-user.jsx",
+                        lineNumber: 43,
+                        columnNumber: 9
+                    }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
                         variant: "primary",
                         type: "submit",
@@ -43841,7 +43894,7 @@ function UpdateUser({ handleSubmit, handleUpdate, user }) {
                         children: "Submit"
                     }, void 0, false, {
                         fileName: "src/components/profile-view/update-user.jsx",
-                        lineNumber: 43,
+                        lineNumber: 53,
                         columnNumber: 9
                     }, this)
                 ]

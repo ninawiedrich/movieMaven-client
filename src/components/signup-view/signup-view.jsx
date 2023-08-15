@@ -37,7 +37,7 @@ export const SignupView = () => {
 
   return (
     <Container style={{ maxWidth: '400px', marginTop: '20px', fontFamily: 'Arial, sans-serif' }}>
-    <h3 style={{ color: '#00B4D8' }}>Signup</h3>
+    <h3 style={{  fontWeight: 'bold', color: '#00B4D8', margin:'80px 150px 40px' }}>Signup</h3>
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId="signUpFormUsername">
       <Form.Label>

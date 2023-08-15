@@ -33,11 +33,21 @@ function UpdateUser({ handleSubmit, handleUpdate, user }) {
           <Form.Label>Email:</Form.Label>
           <Form.Control
             type="email"
-            name="Email"
+            name="email"
             defaultValue={user.email}
             onChange={e => handleUpdate(e)}
             required
             placeholder="Enter email"
+          />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Email:</Form.Label>
+          <Form.Control
+            type="date"
+            name="birthay"
+            defaultValue={user.birthday}
+            onChange={e => handleUpdate(e)}
+            required
           />
         </Form.Group>
         <Button variant="primary" type="submit" onClick={handleSubmit}>

@@ -51,8 +51,9 @@ return (
 );
 
 MovieView.propTypes = {
-  movie: PropTypes.array.isRequired,
+  movies: PropTypes.array.isRequired,
   user: PropTypes.object.isRequired,
   token: PropTypes.string.isRequired,
   updateUserFavorites: PropTypes.func.isRequired
 };
+}

@@ -5,7 +5,6 @@ import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 import { ProfileView } from "../profile-view/profile-view";
 import Row from "react-bootstrap/Row";
-import Button from 'react-bootstrap/Button';
 import Col from "react-bootstrap/Col";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
@@ -24,6 +23,7 @@ export const MainView = () => {
   };
 
   useEffect(() => {
+    console.log('User state has changed:', user);
     console.log("useEffect is being called");
     console.log("Token before fetch:", token);
     if (!token) return;
@@ -154,33 +154,33 @@ export const MainView = () => {
           />
 
 <Route
-              path='/users'
-              element={
-                <>
-                  {user ? (
-                    <Col>
-                      <h2 className="my-2 my-lg-0" style={{color: '#606060'}}>
-                        My profile settings
-                      </h2>
-                      <ProfileView
-                        loggedOut={() => {
-                          setUser(null);
-                          setMovie(null);
-                          localStorage.clear();
-                        }}
-                        user={user}
-                        token={token}
-                        movies={movie}
-                        setUser={setUser}
-        
-                      />
-                    </Col>
-                  ) : (
-                    <Navigate to='/login' replace />
-                  )}
-                </>
-              }
-            />
+  path='/users'
+  element={
+    <>
+      {user ? (
+        <Col>
+          <h2 style={{color: '#606060', marginTop: '80px'}}>
+            My profile settings
+          </h2>
+          <ProfileView
+            onLogout={() => {
+              setUser(null);
+              setMovie([]);
+              localStorage.removeItem('user');
+              localStorage.removeItem('token');
+            }}
+            user={user}
+            token={token}
+            movies={movie}
+            setUser={setUser}
+          />
+        </Col>
+      ) : (
+        <Navigate to='/login' replace />
+      )}
+    </>
+  }
+/>
         </Routes>
       </Row>
     </BrowserRouter>

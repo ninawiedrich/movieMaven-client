@@ -11,7 +11,7 @@ export const ProfileView = ({ user, token, setUser, movies, onLogout }) => {
   const [email, setEmail] = useState(user.email);
   const [birthday, setBirthday] = useState(user.birthDate);
 
-  const favoriteMoviesIds = user.FavoriteMovies || [];
+  const favoriteMoviesIds = user.favoriteMovies || [];
   const favoriteMovieList = movies.filter((movie) => {
     return favoriteMoviesIds.includes(movie._id);
   });
@@ -93,7 +93,7 @@ export const ProfileView = ({ user, token, setUser, movies, onLogout }) => {
         <Col xs={12} sm={4}>
           <Card>
             <Card.Body>
-              <UserInfo name={user.username} email={user.email} birthday={user.birthday} />
+              <UserInfo name={user.username} email={user.email} birthday={user.birthday} onDeregister={handleDeleteUser}/>
             </Card.Body>
           </Card>
         </Col>
