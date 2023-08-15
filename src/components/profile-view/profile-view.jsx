@@ -20,14 +20,17 @@ export const ProfileView = ({ user, token, setUser, movies, onLogout }) => {
     const { name, value } = e.target;
 
     switch (name) {
-      case 'Username':
+      case 'username':
         setUsername(value);
         break;
-      case 'Password':
+      case 'password':
         setPassword(value);
         break;
-      case 'Email':
+      case 'email':
         setEmail(value);
+        break;
+        case 'birthday':
+        setBirthday(value);
         break;
       default:
         break;
@@ -38,13 +41,14 @@ export const ProfileView = ({ user, token, setUser, movies, onLogout }) => {
     event.preventDefault();
   
     const data = {
-      Username: username,
-      Email: email,
-      BirthDate: birthday
+      username: username,
+      password: password,
+      email: email,
+      birthday: birthday
     };
   
     if (password) {
-      data.Password = password;
+      data.password = password;
     }
   
     fetch(`https://moviemaven-dfc40ecb1c33.herokuapp.com/users/${user.username}`, {
@@ -55,9 +59,11 @@ export const ProfileView = ({ user, token, setUser, movies, onLogout }) => {
         Authorization: `Bearer ${token}`
       }
     }).then((response) => {
+      console.log('Server Response:', response);
       if (response.ok) {
         return response.json()
       } else {
+        response.json().then((error) => console.log(error));
         alert("Update failed.");
       }
     }).then((data) => {
@@ -87,7 +93,7 @@ export const ProfileView = ({ user, token, setUser, movies, onLogout }) => {
         <Col xs={12} sm={4}>
           <Card>
             <Card.Body>
-              <UserInfo name={user.username} email={user.email} />
+              <UserInfo name={user.username} email={user.email} birthday={user.birthday} />
             </Card.Body>
           </Card>
         </Col>
@@ -97,7 +103,7 @@ export const ProfileView = ({ user, token, setUser, movies, onLogout }) => {
               <UpdateUser
                 handleSubmit={handleSubmit}
                 handleUpdate={handleUpdate}
-                user={{ username, password, email }}
+                user={{ username, password, email, birthday }}
               />
             </Card.Body>
           </Card>

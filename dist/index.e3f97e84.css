@@ -68,6 +68,10 @@
   display: block;
 }
 
+.fav-movie figure figcaption {
+  text-align: center;
+}
+
 .fav-movie button.btn {
   margin: auto;
   display: block;

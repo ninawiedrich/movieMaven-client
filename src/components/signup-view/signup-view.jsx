@@ -23,27 +23,17 @@ export const SignupView = () => {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
-        "Content-Type": "application/json"
+          "Content-Type": "application/json"
       }
-    })
-    .then((response) => {
+  }).then((response) => {
       if (response.ok) {
-        alert("Signup successful");
-        window.location.reload();
+          alert("Signup successful!");
+          //window.location.reload();
       } else {
-        return response.json(); // if the response is not ok, try to parse it as json
+          alert("Signup failed!");
       }
-    })
-    .then((data) => {
-      if (data) { // if the response was not ok and could be parsed as json
-        console.error("Signup failed:", data); // print out the parsed error message
-        alert("Signup failed once again");
-      }
-    })
-    .catch((error) => {
-      console.error("An error occurred:", error);
-    });
-  }
+  });
+};
 
   return (
     <Container style={{ maxWidth: '400px', marginTop: '20px', fontFamily: 'Arial, sans-serif' }}>
@@ -58,7 +48,7 @@ export const SignupView = () => {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
-          minLength="3"
+          minLength="5"
         />
       </Form.Group>
 
