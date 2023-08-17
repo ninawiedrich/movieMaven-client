@@ -45,8 +45,6 @@ export const MainView = () => {
   };
 
   useEffect(() => {
-    console.log("useEffect is being called");
-    console.log("Token before fetch:", token);
     if (!token) return;
   
     fetch("https://moviemaven-dfc40ecb1c33.herokuapp.com/movies", {

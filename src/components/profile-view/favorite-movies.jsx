@@ -5,9 +5,7 @@ import { Link } from 'react-router-dom';
 
 function FavoriteMoviesComponent({ favoriteMovieList, removeFavoriteMovie }) {
 
-  const removeFav = (movieId) => {
     removeFavoriteMovie(movieId);
-  };
 
   return (
     <Card>
@@ -29,7 +27,7 @@ function FavoriteMoviesComponent({ favoriteMovieList, removeFavoriteMovie }) {
                     </Figure.Caption>
                   </Link>
                 </Figure>
-                <Button variant="secondary" onClick={() => removeFav(_id)}>Remove from list</Button>
+                <Button variant="secondary" onClick={() => removeFavoriteMovie(_id)}>Remove from list</Button>
               </Col>
             );
           })}
