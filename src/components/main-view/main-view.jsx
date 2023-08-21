@@ -93,38 +93,141 @@ export const MainView = () => {
       <NavigationBar user={user} onLoggedOut={() => setUser(null)} />
       <Row className="justify-content-md-center">
         <Routes>
-          <Route path="/signup" element={<>{user ? <Navigate to="/" /> : <Col md={5}><SignupView /></Col>}</>} />
-          <Route path="/login" element={<>{user ? <Navigate to="/" /> : <Col md={5}><LoginView onLoggedIn={(user, token) => { setUser(user); setToken(token); }} /></Col>}</>} />
-          <Route path="/movies/:movieId" element={<>{!user ? <Navigate to="/login" replace /> : movie.length === 0 ? <Col>The list is empty!</Col> : <Col md={8}><MovieView movie={movie} user={user} token={token} updateUserFavorites={updateUserFavorites} /></Col>}</>} />
+          <Route
+            path="/signup"
+            element={
+              <>
+                {user ? (
+                  <Navigate to="/" />
+                ) : (
+                  <Col md={5}>
+                    <SignupView />
+                  </Col>
+                )}
+              </>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <>
+                {user ? (
+                  <Navigate to="/" />
+                ) : (
+                  <Col md={5}>
+                    <LoginView
+                      onLoggedIn={(user, token) => {
+                        setUser(user);
+                        setToken(token);
+                      }}
+                    />
+                  </Col>
+                )}
+              </>
+            }
+          />
+          <Route
+            path="/movies/:movieId"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : movie.length === 0 ? (
+                  <Col>The list is empty!</Col>
+                ) : (
+                  <Col md={8}>
+                    <MovieView
+                      movie={movie}
+                      user={user}
+                      token={token}
+                      updateUserFavorites={updateUserFavorites}
+                    />
+                  </Col>
+                )}
+              </>
+            }
+          />
           <Route
             path="/"
             element={
               <>
-                {!user ? <Navigate to="/login" replace /> : movie.length === 0 ? <Col>The list is empty!</Col> : <>
-                  <div className="search-container">
-                    <input
-                      type="text"
-                      value={searchTerm}
-                      onChange={handleSearchChange}
-                      placeholder="Search movie by title, genre, or director"
-                      style={{
-                        width: "40%",
-                        padding: "20px",
-                        margin: "20px 0 0 780px",
-                        border: "none",
-                        boxShadow: "5px 4px 6px rgba(136, 211, 246, 1)",
-                        borderRadius: "5px",
-                        outline: "none",
-                        textAlign: "center",
-                      }}
-                    />
-                  </div>
-                  {movie.filter((movieItem) => searchTerm === "" || movieItem.title.toLowerCase().includes(searchTerm.toLowerCase()) || movieItem.genre.name.toLowerCase().includes(searchTerm.toLowerCase()) || movieItem.director.name.toLowerCase().includes(searchTerm.toLowerCase())).map((movie) => <Col className="mb-4" key={movie._id} md={3}><MovieCard movie={movie} /></Col>)}
-                </>}
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : movie.length === 0 ? (
+                  <Col>The list is empty!</Col>
+                ) : (
+                  <>
+                    <div className="search-container">
+                      <input
+                        type="text"
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                        placeholder="Search movie by title, genre, or director"
+                        style={{
+                          width: "40%",
+                          padding: "20px",
+                          margin: "20px 0 0 780px",
+                          border: "none",
+                          boxShadow: "5px 4px 6px rgba(136, 211, 246, 1)",
+                          borderRadius: "5px",
+                          outline: "none",
+                          textAlign: "center",
+                        }}
+                      />
+                    </div>
+                    {movie
+                      .filter(
+                        (movieItem) =>
+                          searchTerm === "" ||
+                          movieItem.title
+                            .toLowerCase()
+                            .includes(searchTerm.toLowerCase()) ||
+                          movieItem.genre.name
+                            .toLowerCase()
+                            .includes(searchTerm.toLowerCase()) ||
+                          movieItem.director.name
+                            .toLowerCase()
+                            .includes(searchTerm.toLowerCase())
+                      )
+                      .map((movie) => (
+                        <Col className="mb-4" key={movie._id} md={3}>
+                          <MovieCard movie={movie} />
+                        </Col>
+                      ))}
+                  </>
+                )}
               </>
             }
           />
-          <Route path="/users" element={<>{user ? <Col><h2 style={{ color: "#606060", marginTop: "80px" }}>My profile settings</h2><ProfileView onLogout={() => { setUser(null); setMovie([]); localStorage.removeItem("user"); localStorage.removeItem("token"); }} removeFavoriteMovie={removeFavoriteMovie} user={user} token={token} movies={movie} setUser={setUser} /></Col> : <Navigate to="/login" replace />}</>} />
+          <Route
+            path="/users"
+            element={
+              <>
+                {user ? (
+                  <Col>
+                    <h2 style={{ color: "#606060", marginTop: "80px" }}>
+                      My profile settings
+                    </h2>
+                    <ProfileView
+                      onLogout={() => {
+                        setUser(null);
+                        setMovie([]);
+                        localStorage.removeItem("user");
+                        localStorage.removeItem("token");
+                      }}
+                      removeFavoriteMovie={removeFavoriteMovie}
+                      user={user}
+                      token={token}
+                      movies={movie}
+                      setUser={setUser}
+                    />
+                  </Col>
+                ) : (
+                  <Navigate to="/login" replace />
+                )}
+              </>
+            }
+          />
         </Routes>
       </Row>
     </BrowserRouter>

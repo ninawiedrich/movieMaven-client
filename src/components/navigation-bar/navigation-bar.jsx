@@ -1,12 +1,12 @@
-import Container from 'react-bootstrap/Container';
+import Container from "react-bootstrap/Container";
 import { Navbar, Container, Nav } from "react-bootstrap";
-import navLogo from '../images/logoMM.png';
+import navLogo from "../images/logoMM.png";
 import { Link } from "react-router-dom";
-import './navigation-bar.scss';
+import "./navigation-bar.scss";
 
 export const NavigationBar = ({ user, onLoggedOut }) => {
   return (
-    <Navbar expand="lg" className="custom-navbar-border" >
+    <Navbar expand="lg" className="custom-navbar-border">
       <Container fluid>
         <Navbar.Brand href="/">
           <img src={navLogo} alt="app logo" width="auto" height="40" />

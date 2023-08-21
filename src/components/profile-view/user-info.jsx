@@ -1,7 +1,6 @@
 import React from "react";
 
-function UserInfo({ email, name, birthday, onDeregister }) { 
- 
+function UserInfo({ email, name, birthday, onDeregister }) {
   const date = new Date(birthday);
   // Format the date according to the user's locale
   const formattedBirthday = date.toLocaleDateString();
@@ -12,7 +11,9 @@ function UserInfo({ email, name, birthday, onDeregister }) {
       <p>Name: {name}</p>
       <p>Email: {email}</p>
       <p>Birthday: {formattedBirthday}</p>
-      <button className="favorite-button" onClick={onDeregister}>Deregister</button>
+      <button className="favorite-button" onClick={onDeregister}>
+        Deregister
+      </button>
     </>
   );
 }
