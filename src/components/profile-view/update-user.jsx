@@ -1,5 +1,5 @@
 import React from "react";
-import Form from 'react-bootstrap/Form';
+import Form from "react-bootstrap/Form";
 
 function UpdateUser({ handleSubmit, handleUpdate, user }) {
   return (
@@ -12,7 +12,7 @@ function UpdateUser({ handleSubmit, handleUpdate, user }) {
             type="text"
             name="Username"
             defaultValue={user.username}
-            onChange={e => handleUpdate(e)}
+            onChange={(e) => handleUpdate(e)}
             required
             placeholder="Enter a username"
           />
@@ -23,7 +23,7 @@ function UpdateUser({ handleSubmit, handleUpdate, user }) {
             type="password"
             name="Password"
             defaultValue={user.password}
-            onChange={e => handleUpdate(e)}
+            onChange={(e) => handleUpdate(e)}
             required
             placeholder="Enter password"
           />
@@ -34,7 +34,7 @@ function UpdateUser({ handleSubmit, handleUpdate, user }) {
             type="email"
             name="email"
             defaultValue={user.email}
-            onChange={e => handleUpdate(e)}
+            onChange={(e) => handleUpdate(e)}
             required
             placeholder="Enter email"
           />
@@ -45,11 +45,15 @@ function UpdateUser({ handleSubmit, handleUpdate, user }) {
             type="date"
             name="birthay"
             defaultValue={user.birthday}
-            onChange={e => handleUpdate(e)}
+            onChange={(e) => handleUpdate(e)}
             required
           />
         </Form.Group>
-        <button className="favorite-button" type="submit" onClick={handleSubmit}>
+        <button
+          className="favorite-button"
+          type="submit"
+          onClick={handleSubmit}
+        >
           Submit
         </button>
       </Form>

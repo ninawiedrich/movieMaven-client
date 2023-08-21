@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
-import { Container, Col, Row, Card } from 'react-bootstrap';
-import UserInfo from './user-info';
-import FavoriteMoviesComponent from './favorite-movies';
-import UpdateUser from './update-user';
-import './profile-view.scss';
+import React, { useState } from "react";
+import { Container, Col, Row, Card } from "react-bootstrap";
+import UserInfo from "./user-info";
+import FavoriteMoviesComponent from "./favorite-movies";
+import UpdateUser from "./update-user";
+import "./profile-view.scss";
 
-export const ProfileView = ({ user, token, setUser, movies, onLogout, removeFavoriteMovie }) => {
+export const ProfileView = ({
+  user,
+  token,
+  setUser,
+  movies,
+  onLogout,
+  removeFavoriteMovie,
+}) => {
   const [username, setUsername] = useState(user.username);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState(user.email);
@@ -20,16 +27,16 @@ export const ProfileView = ({ user, token, setUser, movies, onLogout, removeFavo
     const { name, value } = e.target;
 
     switch (name) {
-      case 'username':
+      case "username":
         setUsername(value);
         break;
-      case 'password':
+      case "password":
         setPassword(value);
         break;
-      case 'email':
+      case "email":
         setEmail(value);
         break;
-        case 'birthday':
+      case "birthday":
         setBirthday(value);
         break;
       default:
@@ -39,52 +46,60 @@ export const ProfileView = ({ user, token, setUser, movies, onLogout, removeFavo
 
   const handleSubmit = (event) => {
     event.preventDefault();
-  
+
     const data = {
       username: username,
       password: password,
       email: email,
-      birthday: birthday
+      birthday: birthday,
     };
-  
+
     if (password) {
       data.password = password;
     }
-  
-    fetch(`https://moviemaven-dfc40ecb1c33.herokuapp.com/users/${user.username}`, {
-      method: "PUT",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`
+
+    fetch(
+      `https://moviemaven-dfc40ecb1c33.herokuapp.com/users/${user.username}`,
+      {
+        method: "PUT",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       }
-    }).then((response) => {
-      console.log('Server Response:', response);
-      if (response.ok) {
-        return response.json()
-      } else {
-        response.json().then((error) => console.log(error));
-        alert("Update failed.");
-      }
-    }).then((data) => {
-      localStorage.setItem("user", JSON.stringify(data));
-      setUser(data);
-    })
+    )
+      .then((response) => {
+        console.log("Server Response:", response);
+        if (response.ok) {
+          return response.json();
+        } else {
+          response.json().then((error) => console.log(error));
+          alert("Update failed.");
+        }
+      })
+      .then((data) => {
+        localStorage.setItem("user", JSON.stringify(data));
+        setUser(data);
+      });
   };
 
   const handleDeleteUser = () => {
-    fetch(`https://moviemaven-dfc40ecb1c33.herokuapp.com/users/${user.username}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`
+    fetch(
+      `https://moviemaven-dfc40ecb1c33.herokuapp.com/users/${user.username}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }
-    }).then((response) => {
+    ).then((response) => {
       if (response.ok) {
         onLogout();
       } else {
-        alert("something went wrong.")
+        alert("something went wrong.");
       }
-    })
+    });
   };
 
   return (
@@ -93,7 +108,12 @@ export const ProfileView = ({ user, token, setUser, movies, onLogout, removeFavo
         <Col xs={12} sm={4}>
           <Card className="custom-card">
             <Card.Body>
-              <UserInfo name={user.username} email={user.email} birthday={user.birthday} onDeregister={handleDeleteUser}/>
+              <UserInfo
+                name={user.username}
+                email={user.email}
+                birthday={user.birthday}
+                onDeregister={handleDeleteUser}
+              />
             </Card.Body>
           </Card>
         </Col>
@@ -109,9 +129,12 @@ export const ProfileView = ({ user, token, setUser, movies, onLogout, removeFavo
           </Card>
         </Col>
       </Row>
-      <FavoriteMoviesComponent favoriteMovieList={favoriteMovieList} removeFavoriteMovie={removeFavoriteMovie} />
+      <FavoriteMoviesComponent
+        favoriteMovieList={favoriteMovieList}
+        removeFavoriteMovie={removeFavoriteMovie}
+      />
     </Container>
   );
-}
+};
 
 export default ProfileView;
