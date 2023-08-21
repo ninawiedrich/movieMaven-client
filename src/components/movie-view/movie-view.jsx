@@ -39,12 +39,14 @@ return (
       <p><strong>Description:</strong> {movie.description}</p>
       <p><strong>Genre:</strong> {movie.genre.name}</p>
       <p><strong>Genre Description:</strong> {movie.genre.description}</p>
+      <div className="button-container">
       <button onClick={handleFavoriteClick} className="favorite-button">
         {isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
       </button>
       <Link to={`/`}>
         <button className="back-button">Back</button>
       </Link>
+      </div>
     </div>
   </div>
 );

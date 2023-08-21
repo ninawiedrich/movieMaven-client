@@ -1,6 +1,6 @@
 import React from "react";
 
-function UserInfo({ email, name, birthday, onDeregister }) { // Add onDeregister prop
+function UserInfo({ email, name, birthday, onDeregister }) { 
  
   const date = new Date(birthday);
   // Format the date according to the user's locale
