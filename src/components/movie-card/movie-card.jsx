@@ -6,19 +6,22 @@ import "./movie-card.scss";
 
 export const MovieCard = ({ movie }) => {
   return (
-    <Card className="h-100" style={{ marginTop: '100px' }}
-  >
-    <Card.Img variant="top" src={movie.imageUrl} alt={`${movie.title} movie poster`} />
-    <Card.Body>
-      <Card.Title>{movie.title}</Card.Title>
-      <Card.Text>{movie.director.name}</Card.Text>
-      <Link to={`/movies/${encodeURIComponent(movie._id)}`}>
-      <Button variant="link">
-        More Info
-      </Button>
-      </Link>
-    </Card.Body>
-  </Card>
+    <Card className="h-100" style={{ marginTop: '80px' }}>
+      <Card.Img variant="top" src={movie.imageUrl} alt={`${movie.title} movie poster`} />
+      <Card.Body className="card-body-container">
+        <div className="card-content">
+          <Card.Title style={{ marginTop: '20px' }}>{movie.title}</Card.Title>
+          <Card.Text>{movie.director.name}</Card.Text>
+        </div>
+        <div className="card-action">
+          <Link to={`/movies/${encodeURIComponent(movie._id)}`}>
+            <Button variant="link">
+              More Info
+            </Button>
+          </Link>
+        </div>
+      </Card.Body>
+    </Card>
   );
 };
 

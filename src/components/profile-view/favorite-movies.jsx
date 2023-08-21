@@ -2,16 +2,12 @@ import React from 'react';
 import { Col, Row, Figure, Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-
 function FavoriteMoviesComponent({ favoriteMovieList, removeFavoriteMovie }) {
-
-    removeFavoriteMovie(movieId);
-
   return (
     <Card>
       <Card.Body>
         <Row>
-          <Col xs={12}>
+          <Col xs={12} style={{ marginBottom: '30px' }}>
             <h2>Favorite Movies</h2>
           </Col>
         </Row>
@@ -22,12 +18,12 @@ function FavoriteMoviesComponent({ favoriteMovieList, removeFavoriteMovie }) {
                 <Figure>
                   <Link to={`/movies/${_id}`}>
                     <Figure.Image src={imageUrl} alt={title} />
-                    <Figure.Caption>
+                    <Figure.Caption style={{ marginTop: '20px' }}>
                       {title}
                     </Figure.Caption>
                   </Link>
                 </Figure>
-                <Button variant="secondary" onClick={() => removeFavoriteMovie(_id)}>Remove from list</Button>
+                <Button variant="secondary" style={{ marginTop: '20px' }} onClick={() => removeFavoriteMovie(_id)}>Remove from list</Button>
               </Col>
             );
           })}

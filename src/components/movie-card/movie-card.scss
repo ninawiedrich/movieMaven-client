@@ -4,4 +4,17 @@
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1); // border styling as shadow
   border-radius: 5px;
   overflow: hidden;
+  max-height: 650px;
+}
+
+.card-body-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.card-action {
+  text-align: right;
+  margin-top: auto; 
 }
