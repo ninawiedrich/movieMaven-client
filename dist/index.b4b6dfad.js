@@ -27340,6 +27340,10 @@ const MainView = ()=>{
                                     children: [
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                                             className: "search-container",
+                                            style: {
+                                                display: "flex",
+                                                justifyContent: "flex-end"
+                                            },
                                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
                                                 type: "text",
                                                 value: searchTerm,
@@ -27348,7 +27352,6 @@ const MainView = ()=>{
                                                 style: {
                                                     width: "40%",
                                                     padding: "20px",
-                                                    margin: "20px 0 0 780px",
                                                     border: "none",
                                                     boxShadow: "5px 4px 6px rgba(136, 211, 246, 1)",
                                                     borderRadius: "5px",
@@ -27405,7 +27408,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 202,
+                            lineNumber: 208,
                             columnNumber: 11
                         }, undefined)
                     ]
