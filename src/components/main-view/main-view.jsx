@@ -157,24 +157,30 @@ export const MainView = () => {
                   <Col>The list is empty!</Col>
                 ) : (
                   <>
-                    <div className="search-container">
-                      <input
-                        type="text"
-                        value={searchTerm}
-                        onChange={handleSearchChange}
-                        placeholder="Search movie by title, genre, or director"
-                        style={{
-                          width: "40%",
-                          padding: "20px",
-                          margin: "20px 0 0 780px",
-                          border: "none",
-                          boxShadow: "5px 4px 6px rgba(136, 211, 246, 1)",
-                          borderRadius: "5px",
-                          outline: "none",
-                          textAlign: "center",
-                        }}
-                      />
-                    </div>
+                    <div
+  className="search-container"
+  style={{
+    display: "flex",
+    justifyContent: "flex-end",
+  }}
+>
+  <input
+    type="text"
+    value={searchTerm}
+    onChange={handleSearchChange}
+    placeholder="Search movie by title, genre, or director"
+    style={{
+      width: "40%",
+      padding: "20px",
+      border: "none",
+      boxShadow: "5px 4px 6px rgba(136, 211, 246, 1)",
+      borderRadius: "5px",
+      outline: "none",
+      textAlign: "center",
+    }}
+  />
+</div>
+
                     {movie
                       .filter(
                         (movieItem) =>
