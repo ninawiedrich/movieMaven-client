@@ -176,7 +176,7 @@ export const MainView = () => {
       boxShadow: "5px 4px 6px rgba(136, 211, 246, 1)",
       borderRadius: "5px",
       outline: "none",
-      textAlign: "center",
+      textAlign: "left",
     }}
   />
 </div>
