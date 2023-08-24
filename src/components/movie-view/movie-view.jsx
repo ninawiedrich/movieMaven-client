@@ -17,6 +17,12 @@ export const MovieView = ({
     user && user.favoriteMovies ? user.favoriteMovies.includes(movieId) : false;
 
   const handleFavoriteClick = () => {
+
+    if (!user || !user.username) {
+      console.error("User or username is missing");
+      return;
+    }
+
     // Determine the method based on whether the movie is already a favorite
     const method = isFavorite ? "DELETE" : "POST";
 

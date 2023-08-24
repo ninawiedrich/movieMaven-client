@@ -20,6 +20,8 @@ export const MainView = () => {
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
 
+  const [isLoading, setIsLoading] = useState(true);
+
   const updateUserFavorites = (updatedUser) => {
     setUser(updatedUser);
     localStorage.setItem("user", JSON.stringify(updatedUser));
@@ -56,6 +58,8 @@ export const MainView = () => {
   useEffect(() => {
     if (!token) return;
 
+    setIsLoading(true);
+
     fetch("https://moviemaven-dfc40ecb1c33.herokuapp.com/movies", {
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -82,9 +86,11 @@ export const MainView = () => {
           };
         });
         setMovie(moviesFromApi);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching movies:", error);
+        setIsLoading(false);
       });
   }, [token]);
 
@@ -130,11 +136,13 @@ export const MainView = () => {
             path="/movies/:movieId"
             element={
               <>
-                {!user ? (
-                  <Navigate to="/login" replace />
-                ) : movie.length === 0 ? (
-                  <Col>The list is empty!</Col>
-                ) : (
+              {!user ? (
+                <Navigate to="/login" replace />
+              ) : isLoading ? (
+                <Col>Loading...</Col> // Display loading while movies are being fetched
+              ) : movie.length === 0 ? (
+                <Col>The list is empty!</Col>
+              ) : (
                   <Col md={8}>
                     <MovieView
                       movie={movie}
@@ -151,36 +159,32 @@ export const MainView = () => {
             path="/"
             element={
               <>
-                {!user ? (
-                  <Navigate to="/login" replace />
-                ) : movie.length === 0 ? (
-                  <Col>The list is empty!</Col>
-                ) : (
+              {!user ? (
+                <Navigate to="/login" replace />
+              ) : isLoading ? (
+                <Col>Loading...</Col> // Display loading while movies are being fetched
+              ) : movie.length === 0 ? (
+                <Col>The list is empty!</Col>
+              ) : (
                   <>
-                    <div
-  className="search-container"
-  style={{
-    display: "flex",
-    justifyContent: "flex-end",
-  }}
->
-  <input
-    type="text"
-    value={searchTerm}
-    onChange={handleSearchChange}
-    placeholder="Search movie by title, genre, or director"
-    style={{
-      width: "40%",
-      padding: "20px",
-      border: "none",
-      boxShadow: "5px 4px 6px rgba(136, 211, 246, 1)",
-      borderRadius: "5px",
-      outline: "none",
-      textAlign: "left",
-    }}
-  />
-</div>
-
+                    <div className="search-container">
+                      <input
+                        type="text"
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                        placeholder="Search movie by title, genre, or director"
+                        style={{
+                          width: "40%",
+                          padding: "20px",
+                          margin: "20px 0 0 780px",
+                          border: "none",
+                          boxShadow: "5px 4px 6px rgba(136, 211, 246, 1)",
+                          borderRadius: "5px",
+                          outline: "none",
+                          textAlign: "center",
+                        }}
+                      />
+                    </div>
                     {movie
                       .filter(
                         (movieItem) =>
