@@ -43,3 +43,8 @@ User Stories:
 - Bootstrap is used as a UI library for styling and responsiveness.
 - The application contains function components.
 - movieMaven App is hosted online and can be accessed from anywhere.
+
+## Project Website
+
+For more information, live demos, and usage examples, please visit the [MovieMaven App website](https://moviemavenhub.netlify.app/login).
+
